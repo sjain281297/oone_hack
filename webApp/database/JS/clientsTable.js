@@ -6,30 +6,22 @@ const database = require('./database.js');
 const pool = database.pool;
 const createQueryHavingWhereClause = database.createQueryHavingWhereClause;
 
-
-//insert a new client and call done(err, result, fields)
-function insertNewClient(name, email, video_url, password, done) {
-    let clientObj = {
-        name: name,
-        email: email,
-        password: password
-    };
-
-    if(video_url){
-        clientObj['video_url']  = video_url;
-    }
+//get required details(via details(array)) of client via identity(object) and call done(result, fields)
+function getClientsByIdentity(identity, details, done) {
+    let sql = createQueryHavingWhereClause('SELECT ?? FROM clients WHERE', identity);
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
-        connection.query('INSERT INTO clients SET ?', [clientObj], function (err, result, fields) {
+        connection.query(sql, [details], function (err, result, fields) {
             connection.release();
+            if (err) throw err;
 
-            done(err, result, fields);
-        })
-    })
+            done(result, fields);
+        });
+    });
 }
 
 module.exports = {
-    insertNewClient,
+    getClientsByIdentity,
 };
