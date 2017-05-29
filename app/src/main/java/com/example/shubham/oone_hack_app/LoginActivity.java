@@ -1,5 +1,6 @@
 package com.example.shubham.oone_hack_app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,24 +30,8 @@ public class LoginActivity extends AppCompatActivity {
                 ApiService apiService=ApiClient.getApiService();
                 String sendemail=email.getText().toString();
                 String sendpassword=password.getText().toString();
-
-                if(!TextUtils.isEmpty(sendemail) && !TextUtils.isEmpty(sendpassword)) {
-
-                    Call<Token> call = apiService.getToken(new AuthBody(sendemail,sendpassword));
-                    call.enqueue(new Callback<Token>() {
-                        @Override
-                        public void onResponse(Call<Token> call, Response<Token> response) {
-                            Token tok = response.body();
-                            Log.i("token",tok.getToken());
-                            Toast.makeText(LoginActivity.this, tok.getToken(), Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<Token> call, Throwable t) {
-
-                        }
-                    });
-                }
+                Intent i=new Intent(LoginActivity.this,AdminActivity.class);
+                startActivity(i);
             }
         });
 

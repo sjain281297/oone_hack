@@ -15,8 +15,12 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    @POST("api/loginauth")
+    @POST("/api/loginauth")
     Call<Token> getToken(@Body AuthBody body);
+    @GET("/bidingareana/allLocations")
+    Call<ArrayList<Location>> getLocations();
+    @GET("/bidingareana/getbids")
+    Call<ArrayList<BidDetail>> postBid(@Body BidInfo body);
 
 
 }

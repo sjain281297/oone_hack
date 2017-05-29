@@ -15,7 +15,7 @@ public class ApiClient {
 
     public static ApiService getApiService() {
         if (apiService == null) {
-            Retrofit r = new Retrofit.Builder().baseUrl("https://192.168.4.115:5000/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).build();
+            Retrofit r = new Retrofit.Builder().baseUrl("http://192.168.4.115:5000").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).build();
 
             apiService = r.create(ApiService.class);
 
